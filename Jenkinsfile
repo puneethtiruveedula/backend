@@ -16,8 +16,8 @@ pipeline {
             steps {
                 script {
                   def packageJson = readJSON file: 'package.json'
-                  def appVersion = packageJson.version
-                  echo "$appVersion"
+                  appVersion = packageJson.version
+                  echo "app version $appVersion"
                 }                
             }
         }
@@ -26,7 +26,7 @@ pipeline {
                 sh """
                  npm install
                  ls -ltr
-                 echo $appVersion 
+                 echo app version $appVersion 
                 """
             }
         }
