@@ -13,7 +13,7 @@ pipeline {
         def nexusUrl = 'nexus.puneeth.cloud:8081'
     }
     parameters {
-        string(name: 'appVersion', description: 'What is the application version?')
+        string(name: 'appVersion', defaultValue: '1.0.0', description: 'What is the application version?')
     }
     stages {
         stage('Read the Version') {
