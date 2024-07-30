@@ -12,6 +12,9 @@ pipeline {
         def appVersion = ''
         def nexusUrl = 'nexus.puneeth.cloud:8081'
     }
+    parameters {
+        string(name: 'appVersion', defaultValue: '1.0.0', description: 'What is the application version?')
+    }
     stages {
         stage('Read the Version') {
             steps {
@@ -58,6 +61,16 @@ pipeline {
                         ]
                     )
                 }
+            }
+        }
+        stage ('Deploy') {
+            def params = [
+                string(name: 'appVersion', value: "${appVersion}")
+            ]
+            steps {
+                script {
+                    build job: 'backend-deploy', parameters: params, wait: false
+                }                
             }
         }
     }
