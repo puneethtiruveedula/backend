@@ -10,7 +10,7 @@ pipeline {
     }
     environment {
         def appVersion = ''
-        def nexusUrl = 'nexus.puneeth.cloud:8081'
+        def nexusUrl = '54.146.173.25:8081'
     }
     stages {
         stage('Read the Version') {
