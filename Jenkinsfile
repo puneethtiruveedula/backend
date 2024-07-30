@@ -10,7 +10,7 @@ pipeline {
     }
     environment {
         def appVersion = ''
-        def nexusUrl = '54.146.173.25:8081'
+        def nexusUrl = 'nexus.puneeth.cloud:8081'
     }
     stages {
         stage('Read the Version') {
@@ -39,21 +39,21 @@ pipeline {
                 """
             }
         }
-        stage ('Nexus Artifact Upload'){
+        stage ('Nexus Artifact Upload') {
             steps {
                 script {
                     nexusArtifactUploader(
                         nexusVersion: 'nexus3',
                         protocol: 'http',
                         nexusUrl: "${nexusUrl}",
-                        groupId: 'com.example',
+                        groupId: 'com.expense',
                         version: "${appVersion}",
                         repository: 'backend',
                         credentialsId: 'nexus-auth',
                         artifacts: [
                             [artifactId: backend,
                             classifier: '',
-                            file: "backend" + "${appVersion}" + '.zip',
+                            file: "backend-" + "${appVersion}" + '.zip',
                             type: 'zip']
                         ]
                     )
