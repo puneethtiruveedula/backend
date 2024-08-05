@@ -14,6 +14,7 @@ pipeline {
     }
     parameters {
         string(name: 'appVersion', defaultValue: '1.0.0', description: 'What is the application version?')
+        booleanParam(name: 'deploy', defaultValue: false, description: 'whether to deploy or not')
     }
     stages {
         stage('Read the Version') {
@@ -75,16 +76,21 @@ pipeline {
                 }
             }
         }
-        // stage ('Deploy') {
-        //     steps {
-        //         script {
-        //             def params = [
-        //         string(name: 'appVersion', value: "${appVersion}")
-        //         ]
-        //             build job: 'backend-deploy', parameters: params, wait: false
-        //         }                
-        //     }
-        // }
+        stage ('Deploy') {
+            when {
+                expression{
+                  params.deploy
+               }
+            }
+            steps {
+                script {
+                    def params = [
+                string(name: 'appVersion', value: "${appVersion}")
+                ]
+                    build job: 'backend-deploy', parameters: params, wait: false
+                }                
+            }
+        }
     }
     post { 
         always { 
